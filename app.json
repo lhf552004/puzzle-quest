@@ -31,6 +31,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "8b0c4d0b-e713-4d21-b777-667ab111afc1"
+      }
+    },
+    "owner": "yawenli"
   }
 }
