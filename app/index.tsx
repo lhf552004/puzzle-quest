@@ -9,8 +9,8 @@ const PuzzleGame: React.FC<PuzzleGameProps> = ({ initialTilesProp }) => {
   const initialTiles = initialTilesProp || [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0,
   ];
-  const [tiles, setTiles] = useState(initialTiles);
-  const [emptyIndex, setEmptyIndex] = useState(15);
+  const [tiles, setTiles] = useState<number[]>(initialTiles);
+  const [emptyIndex, setEmptyIndex] = useState<number>(15);
 
   const moveTile = (index: number) => {
     const adjacentIndexes = [
@@ -54,14 +54,10 @@ const PuzzleGame: React.FC<PuzzleGameProps> = ({ initialTilesProp }) => {
     setEmptyIndex(shuffledTiles.indexOf(0));
   };
 
-  // Method to set tiles directly for testing
-  const setTilesForTesting = (newTiles: number[]) => {
-    setTiles(newTiles);
-    setEmptyIndex(newTiles.indexOf(0));
-  };
-
   useEffect(() => {
-    shuffleTiles();
+    if (!initialTilesProp) {
+      shuffleTiles();
+    }
   }, []);
 
   return (
@@ -105,6 +101,7 @@ const styles = StyleSheet.create({
   },
   tileText: {
     fontSize: 24,
+    color: "#fff", // White text for better contrast
   },
   winText: {
     fontSize: 32,
