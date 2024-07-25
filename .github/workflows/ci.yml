@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      # Service container for running an Android emulator
+      android-emulator:
+        image: cirrusci/android-sdk:latest
+        options: --privileged
+        ports:
+          - 5554:5554
+          - 5555:5555
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Start Android Emulator
+        run: |
+          adb start-server
+          adb devices
+          echo no | avdmanager create avd -n test -k "system-images;android-30;google_apis;x86_64"
+          $ANDROID_HOME/emulator/emulator -avd test -no-snapshot -no-window -no-audio &
+          adb wait-for-device
+          adb shell input keyevent 82
+
+      - name: Run tests
+        run: npm test
