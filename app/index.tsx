@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-const PuzzleGame = () => {
-  const initialTiles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
+interface PuzzleGameProps {
+  initialTilesProp?: number[];
+}
+
+const PuzzleGame: React.FC<PuzzleGameProps> = ({ initialTilesProp }) => {
+  const initialTiles = initialTilesProp || [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0,
+  ];
   const [tiles, setTiles] = useState(initialTiles);
   const [emptyIndex, setEmptyIndex] = useState(15);
 

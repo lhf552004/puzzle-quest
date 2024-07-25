@@ -26,13 +26,11 @@ describe("PuzzleGame", () => {
   });
 
   test("checks win condition", () => {
-    const { getByText, queryByText } = render(<Index />);
-
-    // Simulate the win condition by arranging tiles correctly
-    // This might require direct manipulation of state if possible
-
-    const tiles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
-    // TODO:
+    // Simulate winning state
+    const winningTiles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
+    const { getByText, queryByText } = render(
+      <Index initialTilesProp={winningTiles} />
+    );
     // Check if the win text is displayed
     const winText = queryByText("You Win!");
     expect(winText).toBeTruthy();
