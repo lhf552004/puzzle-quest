@@ -48,6 +48,12 @@ const PuzzleGame = () => {
     setEmptyIndex(shuffledTiles.indexOf(0));
   };
 
+  // Method to set tiles directly for testing
+  const setTilesForTesting = (newTiles: number[]) => {
+    setTiles(newTiles);
+    setEmptyIndex(newTiles.indexOf(0));
+  };
+
   useEffect(() => {
     shuffleTiles();
   }, []);
